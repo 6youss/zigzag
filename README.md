@@ -1,2 +1,0 @@
-# zigzag
-Created with CodeSandbox
