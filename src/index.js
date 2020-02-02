@@ -8,13 +8,12 @@ function zigzag(str, depth) {
   for (let i = 0; i < str.length; i++) {
     if (i % (depth - 1) === 0) reverseCalc *= -1;
     lineIndex += reverseCalc;
-    console.log(Math.round(i / depth));
 
     let initialSpaces = "_".repeat(lineIndex);
     // let spaces = "_".repeat(depth - lineIndex);
 
     lines[lineIndex] = lines[lineIndex]
-      ? initialSpaces + lines[lineIndex] + (str[i + 1] ? str[i + 1] : "")
+      ? lines[lineIndex] + (str[i + 1] ? str[i + 1] : "")
       : initialSpaces + (str[i + 1] ? str[i + 1] : "");
   }
 
