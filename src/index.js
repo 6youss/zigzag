@@ -1,20 +1,15 @@
 import "./styles.css";
 
 function zigzag(str, depth) {
-  const lines = [str[0]];
-  let reverseCalc = -1;
+  const lines = [];
+  let down = true;
   let lineIndex = 0;
-
   for (let i = 0; i < str.length; i++) {
-    if (i % (depth - 1) === 0) reverseCalc *= -1;
-    lineIndex += reverseCalc;
-
-    let initialSpaces = "_".repeat(lineIndex);
-    // let spaces = "_".repeat(depth - lineIndex);
-
-    lines[lineIndex] = lines[lineIndex]
-      ? lines[lineIndex] + (str[i + 1] ? str[i + 1] : "")
-      : initialSpaces + (str[i + 1] ? str[i + 1] : "");
+    let letter = str[i];
+    lines[lineIndex] = lines[lineIndex] ? lines[lineIndex] + letter : letter;
+    down ? lineIndex++ : lineIndex--;
+    if (lineIndex === depth - 1) down = false;
+    if (lineIndex === 0) down = true;
   }
 
   return lines;
