@@ -1,27 +1,35 @@
 import "./styles.css";
 
-function zigzag(str, depth) {
+function zigzag(str, depth, spaceChar = "_") {
+  if (depth === 1) return [str];
+
   const lines = [];
   let down = true;
   let lineIndex = 0;
+  let bottom = depth - 1;
+
   for (let i = 0; i < str.length; i++) {
-    let letter = str[i];
-    lines[lineIndex] = lines[lineIndex] ? lines[lineIndex] + letter : letter;
+    let initialSpaces = spaceChar.repeat(lineIndex);
+    let spacesCount = down
+      ? 2 * (bottom - lineIndex - 1) + 1
+      : 2 * (lineIndex - 1) + 1;
+    let spaces = spaceChar.repeat(spacesCount);
+    let letter = str[i] + spaces;
+    lines[lineIndex] = lines[lineIndex]
+      ? lines[lineIndex] + letter
+      : initialSpaces + letter;
     down ? lineIndex++ : lineIndex--;
-    if (lineIndex === depth - 1) down = false;
+    if (lineIndex === bottom) down = false;
     if (lineIndex === 0) down = true;
   }
+  for (let line of lines) {
+    //@OPTIONAL clean spaces at the end of the line
+    for (let i = line.length - 1; line[i] === spaceChar; i--) {
+      line = line.slice(0, i);
+    }
 
-  return lines;
+    console.log(line);
+  }
 }
 
-for (let line of zigzag("Helloworld!", 4)) {
-  console.log(line);
-}
-
-/*
-  H_____o_____
-  _e___w_r___
-  __l_o___l_!
-  ___l_____d
-*/
+zigzag("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 6);
