@@ -24,9 +24,11 @@ function zigzag(str, depth, spaceChar = "_") {
   }
   for (let line of lines) {
     //@OPTIONAL clean spaces at the end of the line
-    for (let i = line.length - 1; line[i] === spaceChar; i--) {
-      line = line.slice(0, i);
+    let spacesToCut = 0;
+    while (line[line.length - 1 - spacesToCut] === spaceChar) {
+      spacesToCut++;
     }
+    line = line.slice(0, line.length - spacesToCut);
 
     console.log(line);
   }
